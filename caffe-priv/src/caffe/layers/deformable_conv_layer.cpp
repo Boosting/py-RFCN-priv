@@ -278,7 +278,7 @@ void DeformableConvolutionLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& b
 STUB_GPU(DeformableConvolutionLayer);
 #endif
 INSTANTIATE_CLASS(DeformableConvolutionLayer);
-
+REGISTER_LAYER_CLASS(DeformableConvolution);
 
 
 
