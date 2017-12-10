@@ -208,7 +208,10 @@ void DeformableConvolutionLayer<Dtype>::LayerSetUp(const vector<Blob<Dtype>*>& b
   this->channels_ = bottom[0]->shape(this->channel_axis_);
   this->num_output_ = this->layer_param_.deformable_convolution_param().num_output();
   CHECK_GT(this->num_output_, 0);
-  this->group_ = this->layer_param_.deformable_convolution_param().group();
+  this->num_deformable_group_ = this->layer_param_.deformable_convolution_param().num_deformable_group();
+  CHECK_EQ(this->channels_ % this->num_deformable_group_, 0);
+  this->group_ = this->layer_param_.deformable_convolution_param().group()
+      << "Input num_filter must divide deformable group size";
   CHECK_EQ(this->channels_ % this->group_, 0);
   CHECK_EQ(this->num_output_ % this->group_, 0)
       << "Number of output should be multiples of group.";
