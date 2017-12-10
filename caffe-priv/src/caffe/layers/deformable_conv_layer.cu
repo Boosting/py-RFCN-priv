@@ -24,7 +24,7 @@ void DeformableConvolutionLayer<Dtype>::Forward_gpu(const vector<Blob<Dtype>*>& 
                                           this->channels_,
                                           bottom[0]->shape(1),bottom[0]->shape(0),this->kernel_shape_.cpu_data()[0],this->kernel_shape_.cpu_data()[1],
                                           this->pad_.cpu_data()[0],this->pad_.cpu_data()[1],this->stride_.cpu_data()[0],this->stride_.cpu_data()[1],
-                                          this->dilation_.cpu_data()[0],this->dilation_.cpu_data()[1],this->group_,
+                                          this->dilation_.cpu_data()[0],this->dilation_.cpu_data()[1],this->num_deformable_group_,
                                           col_buff);
      // gemm
     for (int g = 0; g < this->group_; ++g) {
@@ -85,7 +85,7 @@ void DeformableConvolutionLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>&
                 bottom_offset + n*this->input_offset_dim_,
                   this->channels_,bottom[0]->shape(1),bottom[0]->shape(0),this->kernel_shape_.cpu_data()[0],this->kernel_shape_.cpu_data()[1],
                   this->pad_.cpu_data()[0],this->pad_.cpu_data()[1],this->stride_.cpu_data()[0],this->stride_.cpu_data()[1],
-                  this->dilation_.cpu_data()[0],this->dilation_.cpu_data()[1],this->group_, bottom_offset_diff + n*this->input_offset_dim_);
+                  this->dilation_.cpu_data()[0],this->dilation_.cpu_data()[1],this->num_deformable_group_, bottom_offset_diff + n*this->input_offset_dim_);
             
              // gradient w.r.t. bottom data,  
    
